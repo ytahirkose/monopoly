@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {useAppDispatch, useAppSelector} from "./store";
+import {addUser, createNewGame} from "./store/birSlice";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const dispatch = useAppDispatch()
+    const state = useAppSelector(state => state.BirSlice);
+    console.log(state)
+
+
+    const user = {
+        id: 'asdwdasdw',
+        name: 'aaaaa',
+        cash: 123,
+        property: [],
+        canPlay: true,
+        position: 0
+    }
+
+    const game = {
+        id: 'aaaa',
+        name: 'nasasda',
+        users: [user]
+    }
+    const newUser = () => {
+        dispatch(addUser(user));
+        dispatch(createNewGame(game));
+    }
+
+    return (
+        <div className="App">
+            <header onClick={newUser} className="App-header">
+                <p>
+                    Edit <code>src/App.tsx</code> and save to reload.
+                </p>
+            </header>
+        </div>
+    );
 }
 
 export default App;
